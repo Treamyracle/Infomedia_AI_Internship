@@ -70,7 +70,7 @@ def clean_text(req: GuardrailRequest):
             forbidden_zones.append((match.start(), match.end()))
 
         ner_results.sort(key=lambda x: x['start'], reverse=True)
-        valid_labels = ['PERSON', 'ADDRESS', 'LOCATION', 'ORGANIZATION']
+        valid_labels = ['PERSON', 'ADDRESS', 'LOCATION', 'ORGANIZATION', 'NIK', 'EMAIL', 'PHONE', 'BIRTHDATE', 'BANK_NUM']
         
         for ent in ner_results:
             label = ent['entity_group']
@@ -105,7 +105,7 @@ def clean_text(req: GuardrailRequest):
     perf_stats = {
         "latency_ms": round((end_time - start_time) * 1000, 2),
         "memory_mb": round(process.memory_info().rss / 1024 / 1024, 2),
-        "cpu_percent": process.cpu_percent(interval=None)
+        "cpu_percent": process.cpu_percent(interval=0.2)
     }
 
     return GuardrailResponse(
