@@ -27,7 +27,7 @@ Sebelum pesan pengguna dikirim ke otak AI (Gemini 2.0 via Google ADK), pesan ter
 
 Sistem ini menggunakan pola **PII Masking Guardrail** dengan komunikasi HTTP antar service.
 
-![Arsitektur DompetKu Secure AI Agent](content\chart.png)
+![Arsitektur DompetKu Secure AI Agent]([content\chart.png](https://github.com/Treamyracle/Infomedia_AI_Internship/blob/main/content/chart.png))
 
 ## 🚀 Cara Menjalankan (Step-by-Step)
 
