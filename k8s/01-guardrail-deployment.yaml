@@ -5,7 +5,7 @@ metadata:
   labels:
     app: guardrail
 spec:
-  replicas: 1
+  replicas: 1 # Jumlah container
   selector:
     matchLabels:
       app: guardrail
@@ -16,48 +16,30 @@ spec:
     spec:
       containers:
       - name: guardrail-container
-        image: guardrail-service:latest
-        imagePullPolicy: IfNotPresent
+        # Pastikan sudah build image: docker build -t guardrail-service:latest ./guardrail_service
+        image: guardrail-service:latest 
+        imagePullPolicy: IfNotPresent # Gunakan image local jika ada
         ports:
         - containerPort: 80
-        
-        # [TAMBAHAN 1] Override Command agar Auto-Reload aktif
-        command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--reload"]
-
         env:
         - name: MODEL_NAME
-          value: "treamyracle/indobert-ner-pii-guardrail"
+          value: "/app/model_cache"
         - name: HF_TOKEN
           valueFrom:
             secretKeyRef:
               name: infomedia-secrets
               key: HF_TOKEN
-        
+        # Health Check
         readinessProbe:
           httpGet:
             path: /health
             port: 80
           initialDelaySeconds: 10
           periodSeconds: 5
-        
         resources:
           requests:
-            memory: "512Mi"
+            memory: "512Mi" # Estimasi min RAM untuk BERT
             cpu: "500m"
           limits:
-            memory: "2Gi"
-            cpu: "1"
-
-        # [TAMBAHAN 2] Mounting Point di dalam Container
-        volumeMounts:
-        - name: local-code
-          mountPath: /app/app  # Posisi folder codingan di dalam container
-
-      # [TAMBAHAN 3] Definisi Folder Asli di Laptop
-      volumes:
-      - name: local-code
-        hostPath:
-          # PERHATIKAN PATH INI! Sesuaikan dengan lokasi folder 'app' di laptop Anda.
-          # Format Docker Desktop Windows: /run/desktop/mnt/host/c/Users/...
-          path: /run/desktop/mnt/host/c/Users/tream/OneDrive/Documents/1DEV/Infomedia_AI_Internship/guardrail_service/app
-          type: Directory
+            memory: "3Gi" # Batas max RAM
+            cpu: "2"

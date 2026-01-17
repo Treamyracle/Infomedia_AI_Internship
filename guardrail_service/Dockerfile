@@ -2,23 +2,29 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
+# Install dependencies sistem (jika perlu untuk psutil/torch)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements dan install
+# 1. Install Library Python Dulu
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy source code
+# 2. Copy Script Download tadi
+COPY download_model.py .
+
+# 3. [PENTING] Jalankan script download SAAT BUILD
+RUN python download_model.py
+
+# 4. Copy sisa kode aplikasi
 COPY app/ ./app/
 
-# Environment Variables
-ENV PORT=80
-ENV MODEL_NAME="treamyracle/indobert-ner-pii-guardrail"
-
-# Expose port (default http)
+# Expose port
 EXPOSE 80
 
-# Jalankan server
+# Environment Variable agar aplikasi baca dari folder lokal
+# (Akan kita sesuaikan juga di k8s, tapi default di sini aman)
+ENV MODEL_NAME="/app/model_cache"
+
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
