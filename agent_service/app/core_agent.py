@@ -36,7 +36,7 @@ class DomiAgent:
 
         # 4. Model Setup
         self.model = genai.GenerativeModel(
-            'gemini-2.0-flash-lite',
+            'gemini-3-flash',
             tools=self.my_tools,
             system_instruction=self.system_prompt,
             safety_settings=[
