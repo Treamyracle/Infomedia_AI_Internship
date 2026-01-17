@@ -143,7 +143,7 @@ Berikut adalah laporan performa dari Guardrail Service (NER Model) saat dijalank
 | Komponen | Spesifikasi |
 |---|---|
 | Device | Laptop |
-| CPU Model | i7-1100HQ |
+| CPU Model | i7-11800HQ (8 Cores, 16 Threads) |
 | RAM Total | 16 GB |
 | OS / Environment | Windows 11 (WSL 2) / Docker Desktop |
 | Kubernetes Limits | CPU: 6 Core (Limit), RAM: 4Gi (Limit) |
