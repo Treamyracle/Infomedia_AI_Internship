@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guardrail-deployment
+  labels:
+    app: guardrail
+spec:
+  replicas: 1 # Jumlah container
+  selector:
+    matchLabels:
+      app: guardrail
+  template:
+    metadata:
+      labels:
+        app: guardrail
+    spec:
+      containers:
+      - name: guardrail-container
+        # Pastikan sudah build image: docker build -t guardrail-service:latest ./guardrail_service
+        image: guardrail-service:latest 
+        imagePullPolicy: IfNotPresent # Gunakan image local jika ada
+        ports:
+        - containerPort: 80
+        env:
+        - name: MODEL_NAME
+          value: "treamyracle/indobert-ner-pii-guardrail"
+        - name: HF_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: infomedia-secrets
+              key: HF_TOKEN
+        # Health Check
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        resources:
+          requests:
+            memory: "512Mi" # Estimasi min RAM untuk BERT
+            cpu: "500m"
+          limits:
+            memory: "2Gi" # Batas max RAM
+            cpu: "1"

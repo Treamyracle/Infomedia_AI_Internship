@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: agent-service
+spec:
+  # Gunakan LoadBalancer jika di Cloud (AWS/GCP) atau Docker Desktop.
+  # Gunakan NodePort jika di Minikube/Bare Metal tanpa LB controller.
+  type: LoadBalancer 
+  selector:
+    app: agent
+  ports:
+    - protocol: TCP
+      port: 8080       # Port akses dari luar (Browser)
+      targetPort: 8080 # Port container aplikasi

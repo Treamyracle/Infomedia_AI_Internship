@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-deployment
+  labels:
+    app: agent
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: agent
+  template:
+    metadata:
+      labels:
+        app: agent
+    spec:
+      containers:
+      - name: agent-container
+        # Build image: docker build -t agent-service:latest ./agent_service
+        image: agent-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        # URL Service Guardrail (sesuai nama di 02-guardrail-service.yaml)
+        - name: GUARDRAIL_SERVICE_URL
+          value: "http://guardrail-service:80/clean"
+        - name: GOOGLE_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: infomedia-secrets
+              key: GOOGLE_API_KEY
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
