@@ -1,4 +1,3 @@
-# guardrail_service/app/main.py
 import re
 import time
 import os
@@ -64,7 +63,6 @@ def clean_text(req: GuardrailRequest):
     try:
         ner_results = ner_engine.predict(text)
         
-        # Cek zona terlarang (yg sudah di-mask regex)
         forbidden_zones = []
         for match in re.finditer(r'\[REDACTED_[A-Z]+\]', text):
             forbidden_zones.append((match.start(), match.end()))

@@ -1,4 +1,3 @@
-# guardrail_service/app/ner_engine.py
 import os
 from transformers import pipeline
 

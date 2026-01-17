@@ -5,7 +5,7 @@ metadata:
   labels:
     app: guardrail
 spec:
-  replicas: 1 # Jumlah container
+  replicas: 1
   selector:
     matchLabels:
       app: guardrail
@@ -16,9 +16,8 @@ spec:
     spec:
       containers:
       - name: guardrail-container
-        # Pastikan sudah build image: docker build -t guardrail-service:latest ./guardrail_service
         image: guardrail-service:latest 
-        imagePullPolicy: IfNotPresent # Gunakan image local jika ada
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         env:
@@ -29,7 +28,6 @@ spec:
             secretKeyRef:
               name: infomedia-secrets
               key: HF_TOKEN
-        # Health Check
         readinessProbe:
           httpGet:
             path: /health
@@ -38,8 +36,8 @@ spec:
           periodSeconds: 5
         resources:
           requests:
-            memory: "512Mi" # Estimasi min RAM untuk BERT
+            memory: "512Mi"
             cpu: "500m"
           limits:
-            memory: "3Gi" # Batas max RAM
+            memory: "3Gi"
             cpu: "2"

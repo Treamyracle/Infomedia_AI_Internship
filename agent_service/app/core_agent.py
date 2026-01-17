@@ -56,7 +56,6 @@ class DomiAgent:
     async def ensure_session(self):
         """Membuat session di dalam Memory Runner jika belum ada"""
         if not self.session_ready:
-            # Cek apakah session sudah ada sebelumnya (untuk menghindari error Duplicate)
             try:
                 await self.runner.session_service.create_session(
                     app_name=self.app_name, 
@@ -101,7 +100,7 @@ class DomiAgent:
                 parts=[types.Part.from_text(text=cleaned_text)]
             )
 
-            # [DEBUG] Print sebelum run
+            # [DEBUG]
             print(f"🚀 Running Agent... Session: {self.session_id}, App: {self.app_name}")
 
             async for event in self.runner.run_async(

@@ -2,7 +2,6 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-# Install dependencies sistem (jika perlu untuk psutil/torch)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
@@ -23,8 +22,6 @@ COPY app/ ./app/
 # Expose port
 EXPOSE 80
 
-# Environment Variable agar aplikasi baca dari folder lokal
-# (Akan kita sesuaikan juga di k8s, tapi default di sini aman)
 ENV MODEL_NAME="/app/model_cache"
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
