@@ -53,7 +53,8 @@ async def chat_endpoint(req: ChatRequest):
     if not agent:
         raise HTTPException(status_code=503, detail="Agent not initialized")
     
-    result = agent.chat(req.message)
+    # PERUBAHAN DI SINI: Tambahkan 'await'
+    result = await agent.chat(req.message)
     
     return ChatResponse(
         reply=result["reply"],
