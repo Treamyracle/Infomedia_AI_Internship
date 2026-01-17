@@ -1,7 +1,7 @@
-fastapi
-uvicorn
-transformers
+fastapi==0.109.0
+uvicorn==0.27.0
 torch --index-url https://download.pytorch.org/whl/cpu
-psutil
-pydantic
+transformers==4.37.0
+pydantic==2.6.0
+numpy
 requests
