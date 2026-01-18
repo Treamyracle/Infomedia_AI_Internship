@@ -5,7 +5,7 @@ DATABASE_USER = {
         "tgl_lahir": "04-10-2005",
         "phone": "08123456789",
         "alamat": "Jl. Emerald Alona G 43",
-        "saldo": 5000000,
+        "saldo": 2000000,
         "pin": "123456"
     },
     "3201123456789001": {

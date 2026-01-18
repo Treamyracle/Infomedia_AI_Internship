@@ -108,6 +108,30 @@ kubectl port-forward service/agent-service 8080:8080
 Buka browser dan akses: `http://localhost:8080`
 
 ---
+## 🧠 Penjelasan Teknis Guardrail
+
+Sistem Guardrail bekerja dalam dua lapisan (layers) untuk memastikan keamanan data maksimal.
+
+#### 1. Regex Engine (`regex_engine.py`)
+Layer pertama menggunakan *Regular Expressions* untuk mendeteksi pola data terstruktur yang pasti. Engine ini memindai teks dan menggantinya dengan tag placeholder sebelum teks menyentuh model AI.
+
+**Pola yang dideteksi:**
+* **NIK:** 16 digit angka (`\b\d{16}\b`).
+* **Email:** Format standar email.
+* **Nomor Telepon:** Format Indonesia (+62/62/08) diikuti 8-12 digit.
+* **Tanggal Lahir:** Format DD-MM-YYYY.
+* **Nomor Rekening:** 10-12 digit angka.
+
+> **Logic Khusus:** Engine memiliki logika untuk membedakan *Nomor Rekening* dan *Nomor Telepon*. Jika terdeteksi deretan angka 10-12 digit tetapi diawali dengan "08" atau "62", sistem akan mengabaikannya sebagai nomor rekening untuk menghindari *false positive*.
+
+#### 2. NER Engine (`ner_engine.py`)
+Layer kedua menggunakan model *Deep Learning* (BERT) untuk mendeteksi entitas yang tidak memiliki pola angka pasti, seperti Nama Orang dan Alamat.
+
+* **Model:** `treamyracle/indobert-ner-pii-guardrail` (Fine-tuned IndoBERT).
+* **Library:** HuggingFace Transformers `pipeline`.
+* **Arsitektur:** Menggunakan pola **Singleton Pattern** untuk memastikan model hanya dimuat satu kali ke dalam memori (RAM) saat aplikasi start, sehingga hemat resource dan inferensi lebih cepat.
+* **Output:** Mengembalikan list entitas (PERSON, ADDRESS, NIK, EMAIL, PHONE, BIRTHDATE, BANK_NUM) beserta posisi karakter (start/end) untuk dilakukan masking.
+---
 
 ## 🧪 Skenario Pengujian (Test Cases)
 Gunakan kalimat berikut untuk menguji kemampuan AI dan Guardrail di Web UI:

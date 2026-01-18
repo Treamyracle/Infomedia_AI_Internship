@@ -1,4 +1,3 @@
-# guardrail_service/app/regex_engine.py
 import re
 
 class RegexEngine:
