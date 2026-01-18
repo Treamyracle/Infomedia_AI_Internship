@@ -4,7 +4,7 @@ DATABASE_USER = {
         "email": "arif@example.com",
         "tgl_lahir": "04-10-2005",
         "phone": "08123456789",
-        "alamat": "Jl. Discovery Terra B 59",
+        "alamat": "Jl. Emerald Alona G 43",
         "saldo": 5000000,
         "pin": "123456"
     },
