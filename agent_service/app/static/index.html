@@ -8,267 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --primary-color: #d32f2f;
-        --primary-dark: #b71c1c;
-        --accent-bg: #ffebee;
-        --text-dark: #212121;
-        --text-light: #757575;
-        --white: #ffffff;
-        --bg-gray: #f8f9fa;
-        --dashboard-bg: #1e1e1e;
-        --terminal-green: #00e676;
-        --terminal-blue: #2979ff;
-        --terminal-yellow: #ffea00;
-      }
-
-      body {
-        font-family: "Inter", sans-serif;
-        background-color: var(--bg-gray);
-        margin: 0;
-        display: flex;
-        height: 100vh;
-        overflow: hidden;
-      }
-
-      .chat-section {
-        width: 40%;
-        background: var(--white);
-        display: flex;
-        flex-direction: column;
-        border-right: 1px solid #e0e0e0;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
-        z-index: 10;
-      }
-
-      .header {
-        background: var(--primary-color);
-        color: var(--white);
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-
-      .logo-icon {
-        font-size: 24px;
-        background: var(--white);
-        color: var(--primary-color);
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        font-weight: bold;
-      }
-
-      .chat-box {
-        flex-grow: 1;
-        padding: 20px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        background-image: radial-gradient(#e0e0e0 1px, transparent 1px);
-        background-size: 20px 20px;
-      }
-
-      .msg {
-        max-width: 80%;
-        padding: 12px 16px;
-        border-radius: 12px;
-        font-size: 14px;
-        line-height: 1.5;
-        position: relative;
-        animation: fadeIn 0.3s ease;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .user {
-        align-self: flex-end;
-        background-color: var(--primary-color);
-        color: var(--white);
-        border-bottom-right-radius: 2px;
-      }
-
-      .bot {
-        align-self: flex-start;
-        background-color: var(--white);
-        color: var(--text-dark);
-        border: 1px solid #eee;
-        border-bottom-left-radius: 2px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-      }
-
-      .input-area {
-        padding: 20px;
-        background: var(--white);
-        border-top: 1px solid #eee;
-        display: flex;
-        gap: 10px;
-      }
-
-      input[type="text"] {
-        flex-grow: 1;
-        padding: 12px 15px;
-        border: 2px solid #eee;
-        border-radius: 8px;
-        font-family: inherit;
-        font-size: 14px;
-        transition: border-color 0.3s;
-      }
-
-      input[type="text"]:focus {
-        border-color: var(--primary-color);
-        outline: none;
-      }
-
-      button {
-        padding: 12px 24px;
-        background: var(--primary-color);
-        color: var(--white);
-        border: none;
-        border-radius: 8px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-
-      button:hover {
-        background: var(--primary-dark);
-      }
-
-      .dashboard-section {
-        width: 60%;
-        background: var(--dashboard-bg);
-        color: #e0e0e0;
-        padding: 20px;
-        overflow-y: auto;
-        font-family: "JetBrains Mono", monospace;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .dash-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #333;
-        padding-bottom: 15px;
-        margin-bottom: 10px;
-      }
-
-      .status-badge {
-        font-size: 12px;
-        background: rgba(0, 230, 118, 0.1);
-        color: var(--terminal-green);
-        padding: 5px 10px;
-        border-radius: 4px;
-        border: 1px solid var(--terminal-green);
-      }
-
-      .card {
-        background: #252526;
-        border: 1px solid #333;
-        border-radius: 8px;
-        padding: 15px;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 3px;
-        height: 100%;
-        background: #444;
-      }
-
-      .card.active::before {
-        background: var(--terminal-yellow);
-        box-shadow: 0 0 10px var(--terminal-yellow);
-      }
-
-      .card h3 {
-        margin: 0 0 10px 0;
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #888;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      pre {
-        margin: 0;
-        white-space: pre-wrap; 
-        word-wrap: break-word;
-        overflow-wrap: anywhere; 
-        font-size: 13px;
-        line-height: 1.6;
-        color: #d4d4d4;
-        max-height: 200px;
-        overflow-y: auto; 
-      }
-
-      .wrap-text {
-        white-space: pre-wrap;
-        word-wrap: break-word;
-        overflow-wrap: anywhere;
-      }
-
-      .highlight {
-        color: var(--terminal-yellow);
-        font-weight: bold;
-      }
-      .redacted {
-        color: #ff5252;
-        font-weight: bold;
-        background: rgba(255, 82, 82, 0.1);
-        padding: 0 4px;
-      }
-      .secure {
-        color: var(--terminal-green);
-      }
-      .info {
-        color: var(--terminal-blue);
-      }
-
-      .log-entry {
-        border-left: 2px solid var(--terminal-blue);
-        background: rgba(41, 121, 255, 0.1);
-        padding: 8px;
-        margin-top: 5px;
-        font-size: 12px;
-        animation: flash 1s;
-      }
-
-      @keyframes flash {
-        0% {
-          background: rgba(41, 121, 255, 0.4);
-        }
-        100% {
-          background: rgba(41, 121, 255, 0.1);
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="/static/style.css" />
   </head>
   <body>
     <div class="chat-section">
@@ -311,38 +51,41 @@
 
       <div class="card" id="card-security">
         <h3>🔒 1. Guardrail Service (Regex + NER)</h3>
-        <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px">
+        
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; margin-bottom:10px;">
           <div>
             <span style="color: #666; font-size: 11px">INPUT USER ASLI</span>
             <pre id="debug-original" style="color: #ff5252">Waiting...</pre>
           </div>
           <div>
-            <span style="color: #666; font-size: 11px"
-              >OUTPUT BERSIH (KE LLM)</span
-            >
+            <span style="color: #666; font-size: 11px">OUTPUT BERSIH (KE LLM)</span>
             <pre id="debug-clean" class="secure">Waiting...</pre>
           </div>
         </div>
-        <div
-          style="margin-top: 10px; border-top: 1px solid #333; padding-top: 5px"
-        >
-          <span style="color: #666; font-size: 11px">METRICS</span>
+
+        <div style="border-top: 1px solid #333; padding-top: 10px;">
+            <span style="color: #666; font-size: 11px; display:block; margin-bottom:5px;">NER ENTITIES DETECTED</span>
+            <div id="ner-tags" class="ner-container">
+                <span style="color:#444; font-size:12px;">Waiting input...</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 10px; border-top: 1px solid #333; padding-top: 5px">
+          <span style="color: #666; font-size: 11px">PERFORMANCE METRICS</span>
           <pre id="debug-perf">-</pre>
         </div>
       </div>
 
       <div class="card active" id="card-action">
         <h3>🤖 2. Agent Action & Tool Calls</h3>
-        <div id="action-log" class="wrap-text" style="min-height: 40px; color: #888; font-size: 13px; max-height: 200px; overflow-y: auto;"></div>
+        <div id="action-log" class="wrap-text" style="min-height: 40px; color: #888; font-size: 13px; max-height: 200px; overflow-y: auto;">
           No action detected yet.
         </div>
       </div>
 
       <div class="card">
         <h3>🔑 3. Secure Session Vault</h3>
-        <span style="color: #666; font-size: 11px"
-          >DATA MAPPING (SENSITIF)</span
-        >
+        <span style="color: #666; font-size: 11px">DATA MAPPING (SENSITIF)</span>
         <pre id="debug-session" style="color: var(--terminal-yellow)">{}</pre>
       </div>
 
@@ -368,24 +111,21 @@
         input.value = "";
 
         document.getElementById("debug-original").innerText = "Processing...";
-        document.getElementById("action-log").innerHTML =
-          "<span class='info'>Thinking...</span>";
+        document.getElementById("action-log").innerHTML = "<span class='info'>Thinking...</span>";
 
         try {
-          const res = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: text }),
-          });
-          const data = await res.json();
+            const res = await fetch(API_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: text }),
+            });
+            const data = await res.json();
+            addBubble(data.reply, "bot");
+            updateDashboard(data.debug, data.reply);
 
-          addBubble(data.reply, "bot");
-
-          updateDashboard(data.debug, data.reply);
         } catch (e) {
           addBubble("Error: " + e, "bot");
-          document.getElementById("action-log").innerHTML =
-            "<span style='color:red'>Connection Error</span>";
+          document.getElementById("action-log").innerHTML = "<span style='color:red'>Connection Error</span>";
         }
       }
 
@@ -402,35 +142,40 @@
       }
 
       function updateDashboard(debug, replyText) {
-        // 1. Guardrail Info
         document.getElementById("debug-original").innerText = debug.original;
         document.getElementById("debug-clean").innerText = debug.final_clean;
 
-        // NER Stats
         let perfData = debug.performance || {};
         let latency = perfData.latency_ms || 0;
         let mem = perfData.memory_mb || 0;
-        let entities = debug.entities || [];
-
-        let perfText = `Latency: ${latency} ms | RAM: ${mem} MB\n`;
-        if (entities.length > 0) {
-          perfText += `Entities: ${entities.map((e) => e.label).join(", ")}`;
-        } else {
-          perfText += `Entities: None detected`;
-        }
+        let cpu = perfData.cpu_percent || 0;
+        
+        let perfText = `Latency: ${latency} ms  |  RAM: ${mem} MB  |  CPU: ${cpu}%`;
         document.getElementById("debug-perf").innerText = perfText;
 
-        // 2. Detect Tool Usage (Heuristic Logic based on Response)
+        const nerContainer = document.getElementById("ner-tags");
+        const entities = debug.entities || [];
+        nerContainer.innerHTML = "";
+
+        if (entities.length > 0) {
+            entities.forEach(ent => {
+                const badge = document.createElement("div");
+                badge.className = "ner-badge";
+                badge.innerHTML = `<span class="ner-label">${ent.label}</span> ${ent.text}`;
+                nerContainer.appendChild(badge);
+            });
+        } else {
+            nerContainer.innerHTML = "<span style='color:#666; font-size:11px'>No entities detected</span>";
+        }
+
         detectAgentAction(replyText, debug.database);
 
-        // 3. Vault
         document.getElementById("debug-session").innerText = JSON.stringify(
           debug.session_data || {},
           null,
           2,
         );
 
-        // 4. Database
         document.getElementById("debug-db").innerText = JSON.stringify(
           debug.database || {},
           null,
@@ -460,8 +205,8 @@
           lowerReply.includes("berhasil")
         ) {
           toolName = "withdraw_ke_bank()";
-        } else if (lowerReply.includes("gagal")) {
-          toolName = "Tool Execution Failed / Rejected";
+        } else if (lowerReply.includes("resource_exhausted") || lowerReply.includes("error")) {
+          toolName = "System Error / Quota Exceeded";
         } else {
           toolName = "LLM Generation (No Tool)";
         }
@@ -472,6 +217,13 @@
                     <span style="color:#aaa">CALLING TOOL:</span><br>
                     <span style="color:var(--terminal-yellow); font-weight:bold;">> ${toolName}</span><br>
                     <span style="color:var(--terminal-green)">[STATUS: EXECUTED]</span>
+                </div>
+            `;
+        } else if (toolName.includes("Error")) {
+             actionHTML = `
+                <div class="log-entry" style="border-left-color: red; background: rgba(255,0,0,0.1);">
+                    <span style="color:#aaa">SYSTEM ALERT:</span><br>
+                    <span style="color:red; font-weight:bold;">> ${toolName}</span>
                 </div>
             `;
         } else {
