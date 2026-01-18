@@ -218,14 +218,20 @@
 
       pre {
         margin: 0;
-        white-space: pre-wrap;
-        word-wrap: break-word; 
-        overflow-wrap: break-word; 
+        white-space: pre-wrap; 
+        word-wrap: break-word;
+        overflow-wrap: anywhere; 
         font-size: 13px;
         line-height: 1.6;
         color: #d4d4d4;
         max-height: 200px;
-        overflow-y: auto;
+        overflow-y: auto; 
+      }
+
+      .wrap-text {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        overflow-wrap: anywhere;
       }
 
       .highlight {
@@ -305,7 +311,7 @@
 
       <div class="card" id="card-security">
         <h3>🔒 1. Guardrail Service (Regex + NER)</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
+        <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px">
           <div>
             <span style="color: #666; font-size: 11px">INPUT USER ASLI</span>
             <pre id="debug-original" style="color: #ff5252">Waiting...</pre>
@@ -327,10 +333,7 @@
 
       <div class="card active" id="card-action">
         <h3>🤖 2. Agent Action & Tool Calls</h3>
-        <div
-          id="action-log"
-          style="min-height: 40px; color: #888; font-size: 13px"
-        >
+        <div id="action-log" class="wrap-text" style="min-height: 40px; color: #888; font-size: 13px; max-height: 200px; overflow-y: auto;"></div>
           No action detected yet.
         </div>
       </div>
