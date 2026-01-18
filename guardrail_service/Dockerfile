@@ -6,14 +6,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# 1. Install Library Python Dulu
+# 1. Install Library Python
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 2. Copy Script Download tadi
+# 2. Copy Script Download
 COPY download_model.py .
 
-# 3. [PENTING] Jalankan script download SAAT BUILD
+# 3. download SAAT BUILD
 RUN python download_model.py
 
 # 4. Copy sisa kode aplikasi
