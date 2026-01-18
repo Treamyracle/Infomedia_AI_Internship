@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
@@ -87,8 +87,14 @@
       }
 
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .user {
@@ -104,7 +110,7 @@
         color: var(--text-dark);
         border: 1px solid #eee;
         border-bottom-left-radius: 2px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
       }
 
       .input-area {
@@ -213,15 +219,31 @@
       pre {
         margin: 0;
         white-space: pre-wrap;
+        word-wrap: break-word; 
+        overflow-wrap: break-word; 
         font-size: 13px;
         line-height: 1.6;
         color: #d4d4d4;
+        max-height: 200px;
+        overflow-y: auto;
       }
 
-      .highlight { color: var(--terminal-yellow); font-weight: bold; }
-      .redacted { color: #ff5252; font-weight: bold; background: rgba(255, 82, 82, 0.1); padding: 0 4px; }
-      .secure { color: var(--terminal-green); }
-      .info { color: var(--terminal-blue); }
+      .highlight {
+        color: var(--terminal-yellow);
+        font-weight: bold;
+      }
+      .redacted {
+        color: #ff5252;
+        font-weight: bold;
+        background: rgba(255, 82, 82, 0.1);
+        padding: 0 4px;
+      }
+      .secure {
+        color: var(--terminal-green);
+      }
+      .info {
+        color: var(--terminal-blue);
+      }
 
       .log-entry {
         border-left: 2px solid var(--terminal-blue);
@@ -233,10 +255,13 @@
       }
 
       @keyframes flash {
-        0% { background: rgba(41, 121, 255, 0.4); }
-        100% { background: rgba(41, 121, 255, 0.1); }
+        0% {
+          background: rgba(41, 121, 255, 0.4);
+        }
+        100% {
+          background: rgba(41, 121, 255, 0.1);
+        }
       }
-
     </style>
   </head>
   <body>
@@ -244,15 +269,20 @@
       <div class="header">
         <div class="logo-icon">D</div>
         <div>
-          <div style="font-weight: 700; font-size: 18px;">DompetKu AI</div>
-          <div style="font-size: 12px; opacity: 0.8;">Secure Customer Support</div>
+          <div style="font-weight: 700; font-size: 18px">DompetKu AI</div>
+          <div style="font-size: 12px; opacity: 0.8">
+            Secure Customer Support
+          </div>
         </div>
       </div>
       <div id="chat-box" class="chat-box">
         <div class="msg bot">
-          Halo! Saya Domi, asisten virtual DompetKu.<br>
-          Saya dapat membantu ganti password, cek saldo, atau request kartu fisik.<br>
-          <small style="color: #888">Semua data sensitif Anda dilindungi oleh Guardrail.</small>
+          Halo! Saya Domi, asisten virtual DompetKu.<br />
+          Saya dapat membantu ganti password, cek saldo, atau request kartu
+          fisik.<br />
+          <small style="color: #888"
+            >Semua data sensitif Anda dilindungi oleh Guardrail.</small
+          >
         </div>
       </div>
       <div class="input-area">
@@ -269,39 +299,48 @@
 
     <div class="dashboard-section">
       <div class="dash-header">
-        <h2 style="margin: 0; font-size: 20px;">🛠️ Backend Live View</h2>
+        <h2 style="margin: 0; font-size: 20px">🛠️ Backend Live View</h2>
         <span class="status-badge">● SYSTEM ONLINE</span>
       </div>
 
       <div class="card" id="card-security">
         <h3>🔒 1. Guardrail Service (Regex + NER)</h3>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px">
           <div>
-            <span style="color:#666; font-size:11px;">INPUT USER ASLI</span>
-            <pre id="debug-original" style="color: #ff5252;">Waiting...</pre>
+            <span style="color: #666; font-size: 11px">INPUT USER ASLI</span>
+            <pre id="debug-original" style="color: #ff5252">Waiting...</pre>
           </div>
           <div>
-            <span style="color:#666; font-size:11px;">OUTPUT BERSIH (KE LLM)</span>
+            <span style="color: #666; font-size: 11px"
+              >OUTPUT BERSIH (KE LLM)</span
+            >
             <pre id="debug-clean" class="secure">Waiting...</pre>
           </div>
         </div>
-        <div style="margin-top: 10px; border-top: 1px solid #333; padding-top: 5px;">
-            <span style="color:#666; font-size:11px;">METRICS</span>
-            <pre id="debug-perf">-</pre>
+        <div
+          style="margin-top: 10px; border-top: 1px solid #333; padding-top: 5px"
+        >
+          <span style="color: #666; font-size: 11px">METRICS</span>
+          <pre id="debug-perf">-</pre>
         </div>
       </div>
 
       <div class="card active" id="card-action">
         <h3>🤖 2. Agent Action & Tool Calls</h3>
-        <div id="action-log" style="min-height: 40px; color: #888; font-size: 13px;">
+        <div
+          id="action-log"
+          style="min-height: 40px; color: #888; font-size: 13px"
+        >
           No action detected yet.
         </div>
       </div>
 
       <div class="card">
         <h3>🔑 3. Secure Session Vault</h3>
-        <span style="color:#666; font-size:11px;">DATA MAPPING (SENSITIF)</span>
-        <pre id="debug-session" style="color: var(--terminal-yellow);">{}</pre>
+        <span style="color: #666; font-size: 11px"
+          >DATA MAPPING (SENSITIF)</span
+        >
+        <pre id="debug-session" style="color: var(--terminal-yellow)">{}</pre>
       </div>
 
       <div class="card">
@@ -326,7 +365,8 @@
         input.value = "";
 
         document.getElementById("debug-original").innerText = "Processing...";
-        document.getElementById("action-log").innerHTML = "<span class='info'>Thinking...</span>";
+        document.getElementById("action-log").innerHTML =
+          "<span class='info'>Thinking...</span>";
 
         try {
           const res = await fetch(API_URL, {
@@ -337,12 +377,12 @@
           const data = await res.json();
 
           addBubble(data.reply, "bot");
-          
-          updateDashboard(data.debug, data.reply);
 
+          updateDashboard(data.debug, data.reply);
         } catch (e) {
           addBubble("Error: " + e, "bot");
-          document.getElementById("action-log").innerHTML = "<span style='color:red'>Connection Error</span>";
+          document.getElementById("action-log").innerHTML =
+            "<span style='color:red'>Connection Error</span>";
         }
       }
 
@@ -368,12 +408,12 @@
         let latency = perfData.latency_ms || 0;
         let mem = perfData.memory_mb || 0;
         let entities = debug.entities || [];
-        
+
         let perfText = `Latency: ${latency} ms | RAM: ${mem} MB\n`;
-        if(entities.length > 0) {
-            perfText += `Entities: ${entities.map(e => e.label).join(", ")}`;
+        if (entities.length > 0) {
+          perfText += `Entities: ${entities.map((e) => e.label).join(", ")}`;
         } else {
-            perfText += `Entities: None detected`;
+          perfText += `Entities: None detected`;
         }
         document.getElementById("debug-perf").innerText = perfText;
 
@@ -381,10 +421,18 @@
         detectAgentAction(replyText, debug.database);
 
         // 3. Vault
-        document.getElementById("debug-session").innerText = JSON.stringify(debug.session_data || {}, null, 2);
+        document.getElementById("debug-session").innerText = JSON.stringify(
+          debug.session_data || {},
+          null,
+          2,
+        );
 
         // 4. Database
-        document.getElementById("debug-db").innerText = JSON.stringify(debug.database || {}, null, 2);
+        document.getElementById("debug-db").innerText = JSON.stringify(
+          debug.database || {},
+          null,
+          2,
+        );
       }
 
       function detectAgentAction(reply, dbState) {
@@ -394,20 +442,29 @@
 
         const lowerReply = reply.toLowerCase();
 
-        if (lowerReply.includes("link reset") || lowerReply.includes("ganti password")) {
-            toolName = "ganti_password()";
-        } else if (lowerReply.includes("kartu fisik") && lowerReply.includes("dikirim")) {
-            toolName = "request_kartu_fisik()";
-        } else if (lowerReply.includes("transfer") || lowerReply.includes("berhasil")) {
-            toolName = "withdraw_ke_bank()";
+        if (
+          lowerReply.includes("link reset") ||
+          lowerReply.includes("ganti password")
+        ) {
+          toolName = "ganti_password()";
+        } else if (
+          lowerReply.includes("kartu fisik") &&
+          lowerReply.includes("dikirim")
+        ) {
+          toolName = "request_kartu_fisik()";
+        } else if (
+          lowerReply.includes("transfer") ||
+          lowerReply.includes("berhasil")
+        ) {
+          toolName = "withdraw_ke_bank()";
         } else if (lowerReply.includes("gagal")) {
-            toolName = "Tool Execution Failed / Rejected";
+          toolName = "Tool Execution Failed / Rejected";
         } else {
-            toolName = "LLM Generation (No Tool)";
+          toolName = "LLM Generation (No Tool)";
         }
 
         if (toolName.includes("()")) {
-            actionHTML = `
+          actionHTML = `
                 <div class="log-entry">
                     <span style="color:#aaa">CALLING TOOL:</span><br>
                     <span style="color:var(--terminal-yellow); font-weight:bold;">> ${toolName}</span><br>
@@ -415,7 +472,7 @@
                 </div>
             `;
         } else {
-             actionHTML = `<span style="color:#888">> ${toolName}</span>`;
+          actionHTML = `<span style="color:#888">> ${toolName}</span>`;
         }
 
         logBox.innerHTML = actionHTML;
