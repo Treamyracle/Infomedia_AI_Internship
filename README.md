@@ -112,6 +112,32 @@ Buka browser dan akses: `http://localhost:8080`
 ## 🧪 Skenario Pengujian (Test Cases)
 Gunakan kalimat berikut untuk menguji kemampuan AI dan Guardrail di Web UI:
 
+### 📋 Data Mock Database
+Berikut adalah data dummy hardcoded yang tersimpan di sistem (`agent_service/app/tools.py`). Gunakan informasi ini untuk memvalidasi respon Agent (misalnya mencocokkan NIK dengan Saldo atau Alamat).
+
+```python
+DATABASE_USER = {
+    "1234567890123456": {
+        "nama": "Arif Athaya",
+        "email": "arif@example.com",
+        "tgl_lahir": "04-10-2005",
+        "phone": "08123456789",
+        "alamat": "Jl. Emerald Alona G 43",
+        "saldo": 5000000,
+        "pin": "123456"
+    },
+    "3201123456789001": {
+        "nama": "Budi Santoso",
+        "email": "budi@test.com",
+        "tgl_lahir": "17-08-1990",
+        "phone": "089988776655",
+        "alamat": "Jl. Sudirman No 1 Jakarta",
+        "saldo": 150000,
+        "pin": "654321"
+    }
+}
+```
+
 #### Ganti Password (Validasi PII Lengkap)  
 **Input:**
 ```perl
