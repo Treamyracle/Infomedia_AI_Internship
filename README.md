@@ -51,7 +51,7 @@ Anda perlu membuat secret untuk menyimpan API Key agar aman. Ganti `MASUKKAN_GOO
 # Hapus secret lama jika ada
 kubectl delete secret infomedia-secrets --ignore-not-found
 
-# Buat secret baru
+# Buat secret baru (Windows)
 kubectl create secret generic infomedia-secrets `
   --from-literal=GOOGLE_API_KEY="MASUKKAN_GOOGLE_API_KEY_ANDA" `
   --from-literal=HF_TOKEN="MASUKKAN_HUGGINGFACE_TOKEN_ANDA_JIKA_PERLU"
@@ -60,6 +60,7 @@ kubectl create secret generic infomedia-secrets `
 Selanjutnya masukkan environment variable anda
 
 ```bash
+# Buat secret baru (Linux/macOS/WSL)
 kubectl create secret generic infomedia-secrets \
   --from-literal=GOOGLE_API_KEY="MASUKKAN_GOOGLE_API_KEY_ANDA" \
   --from-literal=HF_TOKEN="MASUKKAN_HUGGINGFACE_TOKEN_ANDA_JIKA_PERLU"
