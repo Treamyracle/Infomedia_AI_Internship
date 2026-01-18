@@ -48,6 +48,7 @@ class DomiAgent:
         5. JANGAN PERNAH MENEBak atau MENGISI DATA YANG DISENSOR.
         6. JIKA DATA TIDAK LENGKAP, tolak permintaan dengan sopan.
         7. JANGAN MEMBERIKAN INFORMASI SENSITIF APAPUN KEPADA USER. 
+        8. Jika user bertanya "bagaimana cara..." atau "cara tarik saldo", JANGAN HANYA meminta data. KAMU WAJIB MEMBERIKAN CONTOH FORMAT DATA LENGKAP YANG DIBUTUHKAN OLEH TOOLS.
         """
 
         # Initialize the Google ADK Agent with the specified Gemini model
