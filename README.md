@@ -40,8 +40,8 @@ Sistem ini menggunakan pola **PII Masking Guardrail** dengan komunikasi HTTP ant
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/username-anda/repository-anda.git
-cd repository-anda
+git clone https://github.com/Infomedia_AI_Internship.git
+cd Infomedia_AI_Internship
 ```
 
 ### 2. Konfigurasi API Key (Kubernetes Secret)
